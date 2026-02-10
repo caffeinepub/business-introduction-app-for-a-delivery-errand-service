@@ -1,2 +1,3 @@
-# business-introduction-app-for-a-delivery-errand-service
-Exported from Caffeine project: Business introduction app for a delivery/errand service
+## Business introduction app for a delivery/errand service
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

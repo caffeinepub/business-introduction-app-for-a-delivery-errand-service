@@ -1,0 +1,210 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Zippy’s Errand Services — business intro + request form + admin review (frontend)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Build a responsive landing-page style app with clear sections (Overview, Services, How It Works, Contact).",
+      "acceptanceCriteria": [
+        "App has a polished landing page with sections: Overview, Services, How It Works, Contact.",
+        "All user-facing text is in English.",
+        "Layout is mobile-first and adapts cleanly to desktop widths."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the main app shell with a simple hash-based router (landing vs admin) and compose the landing page sections (Overview, Services, How It Works, Contact), ensuring mobile-first responsive layout and English copy."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteHeader.tsx",
+          "operation": "create",
+          "description": "Add a responsive header with brand area, primary navigation anchors to landing sections, and a prominent primary CTA that scrolls/jumps to the Contact form."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteFooter.tsx",
+          "operation": "create",
+          "description": "Add a footer with contact summary and quick links to page sections for a website-style finish."
+        },
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "create",
+          "description": "Implement the landing page container that renders the required sections in order and wires section IDs for navigation (Overview, Services, How It Works, Contact)."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Adjust document title/meta as needed to match the business intro site and support mobile-first rendering (keep all user-facing text in English)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Add a Services section with three highlighted categories and clear CTAs.",
+      "acceptanceCriteria": [
+        "Services section displays the three categories with readable descriptions.",
+        "Each service card/row includes a visible CTA (e.g., “Request this service”)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/ServicesSection.tsx",
+          "operation": "create",
+          "description": "Create the Services section with three service cards/rows (Grocery Delivery, Restaurant Delivery, Special Delivery) each including a short description and a clear CTA that navigates users to the Contact/Request form (and optionally preselects the service type)."
+        },
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Wire ServicesSection into the landing page in the correct position and ensure section anchor navigation works."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement a client-validated Request an Errand / Contact form that collects all specified fields and shows confirmation on success.",
+      "acceptanceCriteria": [
+        "Form includes all specified fields and prevents submission when required fields are missing.",
+        "On successful submission, user sees a confirmation state/message and the form resets."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/forms/RequestErrandForm.tsx",
+          "operation": "create",
+          "description": "Build the Request an Errand / Contact form with fields: name, phone, optional email, service type (grocery/restaurant/special), pickup details, drop-off details, notes, preferred time window. Implement client-side validation for required fields and disable/prevent submission until valid."
+        },
+        {
+          "path": "frontend/src/hooks/useSubmitContactRequest.ts",
+          "operation": "create",
+          "description": "Create a React Query mutation hook that calls the backend capability for submitting a contact request. Map the richer form payload into the backend’s available submitContactRequest(name, email, message) by composing a structured message string that includes phone, service type, pickup/drop-off, notes, and preferred time window."
+        },
+        {
+          "path": "frontend/src/components/sections/ContactSection.tsx",
+          "operation": "create",
+          "description": "Create the Contact section that includes contact info plus the RequestErrandForm, and displays an inline confirmation state/message after successful submission (and triggers form reset)."
+        },
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Wire ContactSection into the landing page and ensure CTAs from other sections route/scroll to it."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add an admin-only frontend page to review submitted requests with Internet Identity login and admin gating.",
+      "acceptanceCriteria": [
+        "Unauthenticated users cannot access the admin page.",
+        "Authenticated non-admin users are denied access (with a clear message).",
+        "Admin users can view a list of requests and open a request to view full details."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AdminRequestsPage.tsx",
+          "operation": "create",
+          "description": "Create the admin review page with a read-only requests list and a detail panel/view for the selected request, using backend capabilities (e.g., getPagedRequests/getAllRequests and getRequestById) for data. Use the selected \"authorization\" component’s frontend guidance (Internet Identity + role checks) to drive login state and admin gating. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/AdminRouteGuard.tsx",
+          "operation": "create",
+          "description": "Add an admin-only guard wrapper: requires Internet Identity login, checks admin status via backend capability (e.g., isCallerAdmin/getCallerUserRole), and shows a clear Access Denied state for non-admin users. Use the selected \"authorization\" component’s access-control UI guidance. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Implement a Login/Logout button using Internet Identity via the existing useInternetIdentity hook; on logout clear cached queries (React Query) as recommended by the selected \"authorization\" component. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupPrompt.tsx",
+          "operation": "create",
+          "description": "Add a lightweight first-login prompt to collect a display name and call backend capabilities getCallerUserProfile/saveCallerUserProfile so the UI can show a friendly name instead of a principal (as recommended by the selected \"authorization\" component). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdminRequests.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to fetch request counts and paged lists for the admin page (read-only), plus fetching a single request by id for the detail view; handle authorization failures with user-friendly messages."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the admin route (e.g., #/admin) into the app-level routing and ensure navigation to it is not exposed as a public CTA; wrap the admin page with AdminRouteGuard so unauthenticated/non-admin users cannot access it."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Add a small admin access entry (e.g., in a utility area) that routes to the admin page, and include the LoginButton for admin access flows; do not expose request data to unauthenticated users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a cohesive warm visual theme (charcoal/cream/orange accents), friendly typography, consistent spacing, and strong CTAs (avoid blue/purple-dominant palette).",
+      "acceptanceCriteria": [
+        "Theme is used consistently across headings, buttons, cards, and spacing.",
+        "Primary CTA styling is consistent and stands out from secondary actions.",
+        "No blue/purple-dominant palette is used."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styles and Tailwind base layer tokens for a warm palette (charcoal + cream + orange accents), set typography defaults, and define consistent component primitives (button/card/input baseline classes) without introducing a blue/purple-dominant theme."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions and/or CSS variable mappings as needed to support the warm brand palette and consistent CTA styling across the app."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Apply consistent CTA styling and spacing in the header/navigation to align with the warm theme (primary vs secondary actions clearly differentiated)."
+        },
+        {
+          "path": "frontend/src/components/sections/ServicesSection.tsx",
+          "operation": "modify",
+          "description": "Align service cards/rows with the global theme (consistent spacing, card surfaces, and CTA button styling)."
+        },
+        {
+          "path": "frontend/src/components/forms/RequestErrandForm.tsx",
+          "operation": "modify",
+          "description": "Apply consistent form styling (labels, inputs, error states, and submit CTA) to match the global warm theme."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add generated static brand assets (logo + hero banner) under frontend/public/assets/generated and display them on the landing page.",
+      "acceptanceCriteria": [
+        "Images exist in frontend/public/assets/generated and are displayed on the landing page.",
+        "No backend routing is used for serving these static images."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/zippys-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated logo asset at the exact required path: frontend/public/assets/generated/zippys-logo.dim_512x512.png."
+        },
+        {
+          "path": "frontend/public/assets/generated/zippys-hero.dim_1600x600.png",
+          "operation": "create",
+          "description": "Add the generated hero banner asset at the exact required path: frontend/public/assets/generated/zippys-hero.dim_1600x600.png."
+        },
+        {
+          "path": "frontend/src/components/sections/HeroSection.tsx",
+          "operation": "create",
+          "description": "Create a hero section that displays the static hero banner image (frontend/public/assets/generated/zippys-hero.dim_1600x600.png), includes a clear primary CTA leading to the Contact form, and reinforces the warm brand theme."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Wire the logo image (frontend/public/assets/generated/zippys-logo.dim_512x512.png) into the header brand area and ensure it renders crisply at common sizes."
+        },
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Wire HeroSection into the top of the landing page so both generated assets are visible on the landing experience without any backend involvement."
+        }
+      ]
+    }
+  ]
+}

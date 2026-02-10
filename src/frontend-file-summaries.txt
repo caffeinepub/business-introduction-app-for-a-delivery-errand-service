@@ -1,0 +1,20 @@
+{
+  "frontend/src/index.css": "Global styles with warm OKLCH color palette (charcoal, cream, orange accents), custom fonts (Inter/Poppins), and reusable component classes for buttons and sections.",
+  "frontend/tailwind.config.js": "Tailwind configuration extended with warm brand colors, custom fonts (Inter/Poppins), and warm shadow utilities.",
+  "frontend/src/App.tsx": "Main app component with hash-based routing between landing and admin pages, integrating header, footer, profile setup, and toast notifications.",
+  "frontend/src/pages/LandingPage.tsx": "Landing page container that composes hero, overview, services, how-it-works, and contact sections in order.",
+  "frontend/src/pages/AdminRequestsPage.tsx": "Admin-only page with route guard that displays a list of contact requests and detailed view of selected requests.",
+  "frontend/src/components/layout/SiteHeader.tsx": "Responsive header with logo, navigation links, scroll-to-section functionality, login button, and mobile menu.",
+  "frontend/src/components/layout/SiteFooter.tsx": "Footer with brand info, quick links, contact details, and attribution to caffeine.ai with UTM tracking.",
+  "frontend/src/components/sections/HeroSection.tsx": "Hero section with headline, description, CTA buttons, and hero banner image.",
+  "frontend/src/components/sections/ServicesSection.tsx": "Services section displaying three service cards (grocery, restaurant, special delivery) with icons, descriptions, and CTAs, with proper className string concatenation outside JSX.",
+  "frontend/src/components/sections/HowItWorksSection.tsx": "How-it-works section showing three-step process with icons and numbered steps.",
+  "frontend/src/components/sections/ContactSection.tsx": "Contact section with contact info sidebar and request form for submitting service requests.",
+  "frontend/src/components/forms/RequestErrandForm.tsx": "Comprehensive request form with validation, all required fields (name, phone, service type, pickup/dropoff details), and success confirmation state.",
+  "frontend/src/components/auth/LoginButton.tsx": "Internet Identity login/logout button with loading states and query cache clearing on logout.",
+  "frontend/src/components/auth/AdminRouteGuard.tsx": "Route guard component that checks authentication and admin role, showing appropriate access denied or login prompts.",
+  "frontend/src/components/auth/ProfileSetupPrompt.tsx": "Modal dialog that prompts first-time users to enter their name after login, preventing flash by checking isFetched state.",
+  "frontend/src/hooks/useSubmitContactRequest.ts": "React Query mutation hook for submitting contact requests to the backend with toast notifications.",
+  "frontend/src/hooks/useAdminRequests.ts": "React Query hooks for admin operations including fetching requests, user role checks, and profile management.",
+  "frontend/index.html": "HTML entry point with updated title, meta description (using double quotes to avoid apostrophe conflict), and Google Fonts preload for Inter and Poppins fonts."
+}

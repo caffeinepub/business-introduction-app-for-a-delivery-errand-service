@@ -1,0 +1,162 @@
+{
+  "kind": "build_request",
+  "title": "Business introduction app for a delivery/errand service",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a responsive business introduction website-style app for a local delivery/errand service (inspired by Zippy’s Errand Services) with clear sections for: business overview, services offered, how it works, and contact information.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-4",
+          "msg-6"
+        ],
+        "quotes": [
+          "https://zippyserrandservic.wixsite.com/zippyserrands",
+          "Create a business introduction app",
+          "Build a business app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App has a polished landing page with sections: Overview, Services, How It Works, Contact.",
+        "All user-facing text is in English.",
+        "Layout is mobile-first and adapts cleanly to desktop widths."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Add a Services section that highlights at least three service categories: Grocery Delivery, Restaurant Delivery, and Special Delivery (pickup/drop-off from local stores), each with a short description and a clear call-to-action.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "https://zippyserrandservic.wixsite.com/zippyserrands"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Services section displays the three categories with readable descriptions.",
+        "Each service card/row includes a visible CTA (e.g., “Request this service”)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement a “Request an Errand / Contact” form that collects: name, phone number, optional email, service type (grocery/restaurant/special), pickup details, drop-off details, notes, and preferred time window; validate required fields on the client.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Build a business app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form includes all specified fields and prevents submission when required fields are missing.",
+        "On successful submission, user sees a confirmation state/message and the form resets."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Create backend support to store submitted contact/request form entries in stable canister storage, including created timestamp, and provide query methods to fetch entries (for an owner/admin view).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Build a business app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes an update method to create a request entry and persists it across canister upgrades.",
+        "Backend exposes a query method to list stored requests (newest-first or oldest-first, but consistent).",
+        "Stored entry includes all fields submitted by the form plus a created timestamp."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add an admin-only page in the frontend to review submitted requests (read-only list + detail view). Protect access using Internet Identity authentication and restrict viewing to a configured admin principal list in the backend.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Build a business app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Unauthenticated users cannot access the admin page.",
+        "Authenticated non-admin users are denied access (with a clear message).",
+        "Admin users can view a list of requests and open a request to view full details."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply a cohesive, distinct visual theme appropriate for a local errand/delivery business (avoid blue/purple): warm, trustworthy colors (e.g., charcoal + cream + orange accents), friendly typography, consistent spacing, and clear CTAs across the app.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Build a business app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Theme is used consistently across headings, buttons, cards, and spacing.",
+        "Primary CTA styling is consistent and stands out from secondary actions.",
+        "No blue/purple-dominant palette is used."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add generated static brand assets and wire them into the UI: a simple logo and a hero illustration/banner on the landing page. Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Build a business app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Images exist in frontend/public/assets/generated and are displayed on the landing page.",
+        "No backend routing is used for serving these static images."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (all logic in backend/main.mo).",
+    "Do not edit files in frontend/src/components/ui or other immutable paths; compose UI using those components instead.",
+    "Use English for all user-facing text."
+  ],
+  "nonGoals": [
+    "Online payments or Stripe checkout.",
+    "Real-time chat, SMS, push notifications, or email sending integrations.",
+    "Third-party auth providers other than Internet Identity.",
+    "External databases or off-chain storage."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimalist delivery/errand service logo mark with text “Zippy’s Errand Services” (zippys-logo.dim_512x512.png)",
+      "Wide hero banner illustration of a friendly local courier delivering groceries/food bags in a neighborhood, warm palette (zippys-hero.dim_1600x600.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

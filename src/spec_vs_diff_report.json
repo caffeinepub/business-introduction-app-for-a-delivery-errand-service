@@ -1,0 +1,100 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-10T16:04:09.377Z",
+  "summary": "Most frontend landing-page sections, warm theme styling, basic request submission, and an admin review page with II-based gating appear implemented. Key gaps are backend stable storage/upgrades and storing all requested form fields as structured data (instead of a single message string). Several additional, unrequested features were added (user profiles, pagination/search endpoints, secret-token access-control initialization).",
+  "missing_requirements": [
+    {
+      "id": "REQ-4",
+      "requirement": "Persist submitted contact/request entries in stable canister storage across upgrades, including created timestamp, and provide query methods to fetch entries.",
+      "reason": "The backend stores requests only in in-memory `var requests : [ContactRequest] = []` and `var nextRequestId`, with no stable variables and no `preupgrade`/`postupgrade` logic shown; this does not demonstrate upgrade-safe stable storage.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Stored entry includes all fields submitted by the form (name, phone, optional email, service type, pickup details, drop-off details, notes, preferred time window) plus a created timestamp.",
+      "reason": "Backend `ContactRequest` type only includes `{id, name, email, message, submittedAt}` and `submitContactRequest` only accepts `(name, email, message)`, so the specified fields are not stored as distinct fields.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/forms/RequestErrandForm.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Restrict admin viewing to a configured admin principal list in the backend.",
+      "reason": "The diff shows checks like `AccessControl.isAdmin(...)` but does not show any explicit configured admin principal list or admin configuration mechanism in `backend/main.mo` (only secret-based initialization is hinted at from the frontend).",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Generated static brand assets must exist under `frontend/public/assets/generated` and be displayed on the landing page.",
+      "reason": "UI references the assets by path, but the diff summary does not include the actual image files under `frontend/public/assets/generated` (some added files are omitted due to limits), so existence cannot be confirmed from provided evidence.",
+      "evidence": [
+        "frontend/src/components/layout/SiteHeader.tsx",
+        "frontend/src/components/layout/SiteFooter.tsx",
+        "frontend/src/components/sections/HeroSection.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "User profile feature (save/get caller profile) and a forced profile-setup modal after login.",
+      "reason": "The BuildRequest does not ask for user profiles or onboarding prompts; it only requires an admin-only requests review page protected by Internet Identity.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/auth/ProfileSetupPrompt.tsx",
+        "frontend/src/hooks/useAdminRequests.ts",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "description": "Additional admin/request endpoints: request count, filter by email, pagination, and multiple request query helpers.",
+      "reason": "REQ-4 only requests an update method to create entries and a query method to list stored requests (plus whatever is needed for the admin view). The extra endpoints go beyond the stated requirements.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Secret-token based access-control initialization via URL parameter `caffeineAdminToken` and `_initializeAccessControlWithSecret` call.",
+      "reason": "The BuildRequest specifies restricting admin access using Internet Identity and an admin principal list in the backend; it does not request a secret-token URL mechanism.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/AdminRouteGuard.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupPrompt.tsx",
+    "frontend/src/components/forms/RequestErrandForm.tsx",
+    "frontend/src/components/layout/SiteFooter.tsx",
+    "frontend/src/components/layout/SiteHeader.tsx",
+    "frontend/src/components/sections/ContactSection.tsx",
+    "frontend/src/components/sections/HeroSection.tsx",
+    "frontend/src/components/sections/HowItWorksSection.tsx",
+    "frontend/src/components/sections/ServicesSection.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useAdminRequests.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useSubmitContactRequest.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AdminRequestsPage.tsx",
+    "frontend/src/pages/LandingPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-responsive-business-introduction-website-style-app-for-a-local-delivery-errand-service-inspired-by-zippy-s-errand-services-with-clear-sections-for-business-overview-services-offered-how-it-works-and-contact-information",
+      "featureTitle": "Create a responsive business introduction website-style app for a local delivery/errand service (inspired by Zippy’s Errand Services) with clear sections for: business overview, services offered, how it works, and contact information.",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/SiteFooter.tsx",
+        "frontend/src/components/layout/SiteHeader.tsx",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-services-section-that-highlights-at-least-three-service-categories-grocery-delivery-restaurant-delivery-and-special-delivery-pickup-drop-off-from-local-stores-each-with-a-short-description-and-a-clear-call-to-action",
+      "featureTitle": "Add a Services section that highlights at least three service categories: Grocery Delivery, Restaurant Delivery, and Special Delivery (pickup/drop-off from local stores), each with a short description and a clear call-to-action.",
+      "files": [
+        "frontend/src/components/sections/ServicesSection.tsx",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-request-an-errand-contact-form-that-collects-name-phone-number-optional-email-service-type-grocery-restaurant-special-pickup-details-drop-off-details-notes-and-preferred-time-window-validate-required-fields-on-the-client",
+      "featureTitle": "Implement a “Request an Errand / Contact” form that collects: name, phone number, optional email, service type (grocery/restaurant/special), pickup details, drop-off details, notes, and preferred time window; validate required fields on the client.",
+      "files": [
+        "frontend/src/components/forms/RequestErrandForm.tsx",
+        "frontend/src/components/sections/ContactSection.tsx",
+        "frontend/src/hooks/useSubmitContactRequest.ts",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-admin-only-page-in-the-frontend-to-review-submitted-requests-read-only-list-detail-view-protect-access-using-internet-identity-authentication-and-restrict-viewing-to-a-configured-admin-principal-list-in-the-backend",
+      "featureTitle": "Add an admin-only page in the frontend to review submitted requests (read-only list + detail view). Protect access using Internet Identity authentication and restrict viewing to a configured admin principal list in the backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/AdminRouteGuard.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupPrompt.tsx",
+        "frontend/src/components/layout/SiteHeader.tsx",
+        "frontend/src/hooks/useAdminRequests.ts",
+        "frontend/src/pages/AdminRequestsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-cohesive-distinct-visual-theme-appropriate-for-a-local-errand-delivery-business-avoid-blue-purple-warm-trustworthy-colors-e-g-charcoal-cream-orange-accents-friendly-typography-consistent-spacing-and-clear-ctas-across-the-app",
+      "featureTitle": "Apply a cohesive, distinct visual theme appropriate for a local errand/delivery business (avoid blue/purple): warm, trustworthy colors (e.g., charcoal + cream + orange accents), friendly typography, consistent spacing, and clear CTAs across the app.",
+      "files": [
+        "frontend/src/components/forms/RequestErrandForm.tsx",
+        "frontend/src/components/layout/SiteHeader.tsx",
+        "frontend/src/components/sections/ServicesSection.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-brand-assets-and-wire-them-into-the-ui-a-simple-logo-and-a-hero-illustration-banner-on-the-landing-page-store-generated-images-under-frontend-public-assets-generated-and-reference-them-directly-from-the-frontend",
+      "featureTitle": "Add generated static brand assets and wire them into the UI: a simple logo and a hero illustration/banner on the landing page. Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+      "files": [
+        "frontend/src/components/layout/SiteHeader.tsx",
+        "frontend/src/components/sections/HeroSection.tsx",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
